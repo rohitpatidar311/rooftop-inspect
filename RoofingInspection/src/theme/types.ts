@@ -32,6 +32,8 @@ export interface Theme {
   assets: {
     headerLogo: ImageSourcePropType
     splashLogo: ImageSourcePropType
+    loginLogo: ImageSourcePropType
+    loginIcon: ImageSourcePropType
     qrCode: ImageSourcePropType
     footerLogo: ImageSourcePropType
   }

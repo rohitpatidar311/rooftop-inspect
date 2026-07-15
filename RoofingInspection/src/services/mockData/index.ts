@@ -1,13 +1,15 @@
 import type { DashboardData, SecretQuestion, UserProfile } from '../api/types'
 
+export { mockTechJobs } from './techJobs'
+
 export const mockUser: UserProfile = {
   UserId: 1,
-  UserName: 'demo',
-  Email: 'demo@roofinginspection.com',
-  FirstName: 'Demo',
-  LastName: 'Inspector',
+  UserName: 'tech',
+  Email: 'tech@bfc.com',
+  FirstName: 'Mike',
+  LastName: 'Torres',
   RoleId: 1,
-  RoleName: 'Inspector',
+  RoleName: 'Field Technician',
   ChartTilePreference: 'Tile',
   NumPercentagePreferece: 'Number',
   ColorPreference: 'Blue',

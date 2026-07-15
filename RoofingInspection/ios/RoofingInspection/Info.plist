@@ -35,6 +35,14 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSCameraUsageDescription</key>
+	<string>Roofing Inspection needs camera access to capture site photos during inspections.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Roofing Inspection needs photo library access to attach site photos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Roofing Inspection needs permission to save captured inspection photos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Roofing Inspection may need microphone access when recording with the camera.</string>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

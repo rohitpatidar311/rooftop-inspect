@@ -31,11 +31,11 @@ import { $styles } from "../../theme/styles"
 
 interface LoginScreenProps extends AuthStackScreenProps<"Login"> {}
 
-/** Compact auth layout — shared visual scale with ForgotPassword */
-const LOGO_CONTAINER_WIDTH = 120
-const LOGO_HEIGHT = 120
+/** Login brand lockup: clean icon + text (avoids JPEG black artifacts) */
+const LOGO_ICON_SIZE = 72
 const INPUT_BORDER_RADIUS = 8
 const ICON_SIZE = 18
+const BFC_BLUE = "#008CEF"
 
 const ENTER_DURATION = 400
 const STAGGER_MS = 80
@@ -157,12 +157,16 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
                 entering={FadeInDown.duration(ENTER_DURATION).delay(0)}
                 style={themed($loginHeader)}
               >
-                <View style={themed($iconContainer)}>
+                <View style={themed($logoLockup)}>
                   <Image
-                    style={themed($logo)}
-                    source={theme.assets.headerLogo}
+                    style={themed($logoIcon)}
+                    source={theme.assets.loginIcon}
                     resizeMode="contain"
                   />
+                  <View style={themed($logoTextCol)}>
+                    <RNText style={themed($logoBfc)}>BFC</RNText>
+                    <RNText style={themed($logoSolutions)}>solutions</RNText>
+                  </View>
                 </View>
                 <RNText style={themed($welcomeSubtitle)}>
                   Sign in to access your account.
@@ -237,18 +241,7 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
                     disabled={isLoading}
                   />
                 </Animated.View>
-                <Animated.View
-                  entering={FadeInDown.duration(ENTER_DURATION).delay(STAGGER_MS * 5)}
-                >
-                  <Button
-                    text="Create Account"
-                    preset="outline"
-                    style={themed($createAccountButton)}
-                    textStyle={themed($createAccountButtonText)}
-                    onPress={() => navigation.navigate("CreateAccount")}
-                    disabled={isLoading}
-                  />
-                </Animated.View>
+                
               </View>
           </View>
         </ScrollView>
@@ -259,7 +252,7 @@ export const LoginScreen: FC<LoginScreenProps> = (_props) => {
           entering={FadeIn.duration(ENTER_DURATION).delay(STAGGER_MS * 5)}
           style={themed($footerContainer)}
         >
-          <RNText style={themed($footerText)}>© 2026 Roofing Inspection. All rights reserved.</RNText>
+          <RNText style={themed($footerText)}>© 2026 Astute DFM. All rights reserved.</RNText>
           <RNText style={themed($footerText)}>{getAppVersionDisplay()}</RNText>
         </Animated.View>
       )}
@@ -312,17 +305,36 @@ const $loginHeader: ThemedStyle<ViewStyle> = () => ({
   marginBottom: 36,
 })
 
-const $iconContainer: ThemedStyle<ViewStyle> = () => ({
-  width: LOGO_CONTAINER_WIDTH,
-  marginBottom: 20,
-  overflow: "hidden",
+const $logoLockup: ThemedStyle<ViewStyle> = () => ({
+  flexDirection: "row",
   alignItems: "center",
+  gap: 12,
+  marginBottom: 20,
+})
+
+const $logoIcon: ThemedStyle<ImageStyle> = () => ({
+  width: LOGO_ICON_SIZE,
+  height: LOGO_ICON_SIZE,
+})
+
+const $logoTextCol: ThemedStyle<ViewStyle> = () => ({
   justifyContent: "center",
 })
 
-const $logo: ThemedStyle<ImageStyle> = () => ({
-  width: "100%",
-  height: LOGO_HEIGHT,
+const $logoBfc: ThemedStyle<TextStyle> = ({ colors, typography }) => ({
+  fontFamily: typography.primary.bold,
+  fontSize: 34,
+  lineHeight: 36,
+  color: colors.text,
+  letterSpacing: -0.5,
+})
+
+const $logoSolutions: ThemedStyle<TextStyle> = ({ typography }) => ({
+  fontFamily: typography.primary.normal,
+  fontSize: 18,
+  lineHeight: 22,
+  color: BFC_BLUE,
+  marginTop: -2,
 })
 
 const $welcomeSubtitle: ThemedStyle<TextStyle> = ({ colors, typography }) => ({

@@ -8,13 +8,14 @@ import { AppBottomSheet, AppBottomSheetRef } from '../components/AppBottomSheet'
 import { Button } from '../components/Button'
 import { useAppTheme } from '../theme/context'
 import { ACCENT_COLORS, AccentColorName, ThemedStyle, ThemeContextModeT } from '../theme/types'
-import type { MainDrawerScreenProps } from '../navigators/navigatorTypes'
 import { useAuth } from '../context/AuthContext'
 import { getAppVersionDisplay } from '../utils/appVersion'
 import { showToast } from '../utils/toast'
 import { api } from '../services/api'
 
-interface AppSettingsScreenProps extends MainDrawerScreenProps<'Settings'> {}
+interface AppSettingsScreenProps {
+  // Legacy settings screen — drawer entry removed; kept for optional reuse
+}
 
 const THEME_OPTIONS: { value: ThemeContextModeT; label: string; icon: string }[] = [
   { value: 'light', label: 'Light', icon: 'sunny-outline' },

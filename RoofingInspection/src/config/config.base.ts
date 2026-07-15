@@ -7,5 +7,5 @@ export interface ConfigBaseProps {
 export const BaseConfig: ConfigBaseProps = {
   persistNavigation: 'dev',
   catchErrors: 'always',
-  exitRoutes: ['Login', 'Dashboard'],
+  exitRoutes: ['Login', 'TodayJobs'],
 }

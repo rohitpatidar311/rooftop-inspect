@@ -5,17 +5,28 @@ import type {
   LoginRequest,
   LoginResult,
   SecretQuestion,
+  TechJob,
   UserProfile,
+  VisitProgress,
 } from './types'
 import {
   mockDashboard,
   mockDelay,
   mockSecretQuestions,
+  mockTechJobs,
   mockUser,
 } from '../mockData'
+import { createEmptyProgress } from '../../redux/slices/visitSlice'
 
 type Ok<T> = { kind: 'ok' } & T
 type Result<T> = Ok<T> | GeneralApiProblem
+
+/** In-memory mutable job status for mock submit */
+const jobStatusMap: Record<string, TechJob['status']> = Object.fromEntries(
+  mockTechJobs.map((j) => [j.id, j.status]),
+)
+
+const progressMap: Record<string, VisitProgress> = {}
 
 /**
  * Mock API layer — same call shapes as a real apisauce client,
@@ -77,8 +88,58 @@ export class Api {
     await mockDelay(300)
     return { kind: 'ok', message: 'Preferences saved.' }
   }
+
+  async getTodayJobs(): Promise<Result<{ data: TechJob[] }>> {
+    await mockDelay(400)
+    const data = mockTechJobs.map((job) => ({
+      ...job,
+      status: jobStatusMap[job.id] ?? job.status,
+    }))
+    return { kind: 'ok', data }
+  }
+
+  async getJob(jobId: string): Promise<Result<{ data: TechJob }>> {
+    await mockDelay(300)
+    const job = mockTechJobs.find((j) => j.id === jobId)
+    if (!job) {
+      return { kind: 'rejected', message: 'Job not found.' }
+    }
+    return {
+      kind: 'ok',
+      data: { ...job, status: jobStatusMap[job.id] ?? job.status },
+    }
+  }
+
+  async saveVisitProgress(
+    progress: VisitProgress,
+  ): Promise<Result<{ data: VisitProgress }>> {
+    await mockDelay(200)
+    progressMap[progress.jobId] = progress
+    return { kind: 'ok', data: progress }
+  }
+
+  async getVisitProgress(
+    jobId: string,
+  ): Promise<Result<{ data: VisitProgress }>> {
+    await mockDelay(150)
+    const data = progressMap[jobId] ?? createEmptyProgress(jobId)
+    return { kind: 'ok', data }
+  }
+
+  async submitVisit(jobId: string): Promise<Result<{ message: string }>> {
+    await mockDelay(500)
+    const job = mockTechJobs.find((j) => j.id === jobId)
+    if (!job) {
+      return { kind: 'rejected', message: 'Job not found.' }
+    }
+    jobStatusMap[jobId] = 'completed'
+    const progress = progressMap[jobId] ?? createEmptyProgress(jobId)
+    progress.submitted = true
+    progressMap[jobId] = progress
+    return { kind: 'ok', message: 'Visit submitted successfully.' }
+  }
 }
 
 export const api = new Api()
 
-export type { LoginResult, LoginRequest, UserProfile, DashboardData }
+export type { LoginResult, LoginRequest, UserProfile, DashboardData, TechJob }

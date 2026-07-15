@@ -15,10 +15,11 @@ import { useAppTheme } from '../../theme/context'
 import { ThemedStyle } from '../../theme/types'
 import { api } from '../../services/api'
 import type { DashboardData } from '../../services/api/types'
-import type { MainDrawerScreenProps } from '../../navigators/navigatorTypes'
 import { useAuth } from '../../context/AuthContext'
 
-interface DashboardScreenProps extends MainDrawerScreenProps<'Dashboard'> {}
+interface DashboardScreenProps {
+  // Legacy screen kept for reference; drawer home is TodayJobs
+}
 
 export const DashboardScreen: FC<DashboardScreenProps> = () => {
   const { themed, theme } = useAppTheme()

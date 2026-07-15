@@ -9,9 +9,18 @@ export type AuthStackParamList = {
   CreateAccount: undefined
 }
 
+export type JobStackParamList = {
+  JobOverview: { jobId: string }
+  SiteCapture: { jobId: string }
+  RoofInspect: { jobId: string }
+  HvacExceptions: { jobId: string }
+  VisitReportPreview: { jobId: string }
+  VisitFinalReport: { jobId: string }
+}
+
 export type MainDrawerParamList = {
-  Dashboard: undefined
-  Settings: undefined
+  TodayJobs: undefined
+  JobFlow: NavigatorScreenParams<JobStackParamList>
 }
 
 export type RootStackParamList = {
@@ -33,6 +42,11 @@ export type AuthStackScreenProps<T extends keyof AuthStackParamList> = Composite
 export type MainDrawerScreenProps<T extends keyof MainDrawerParamList> = CompositeScreenProps<
   DrawerScreenProps<MainDrawerParamList, T>,
   RootStackScreenProps<keyof RootStackParamList>
+>
+
+export type JobStackScreenProps<T extends keyof JobStackParamList> = CompositeScreenProps<
+  NativeStackScreenProps<JobStackParamList, T>,
+  MainDrawerScreenProps<'JobFlow'>
 >
 
 declare global {

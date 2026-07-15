@@ -16,6 +16,8 @@ export const lightTheme: Theme = {
   assets: {
     headerLogo: require("../assets/images/bfc-app-icon.png"),
     splashLogo: require("../assets/images/bfc-splash.png"),
+    loginLogo: require("../assets/images/bfc-login-logo.png"),
+    loginIcon: require("../assets/images/bfc-login-icon.png"),
     qrCode: require("../assets/images/qr_code.jpg"),
     footerLogo: require("../assets/images/Astute_DFM_Logo_White.png"),
   },
@@ -29,6 +31,8 @@ export const darkTheme: Theme = {
   assets: {
     headerLogo: require("../assets/images/bfc-app-icon.png"),
     splashLogo: require("../assets/images/bfc-splash.png"),
+    loginLogo: require("../assets/images/bfc-login-logo.png"),
+    loginIcon: require("../assets/images/bfc-login-icon.png"),
     qrCode: require("../assets/images/qr_code.jpg"),
     footerLogo: require("../assets/images/Astute_DFM_Logo_Black.png"),
   },

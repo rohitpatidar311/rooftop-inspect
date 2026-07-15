@@ -1,8 +1,8 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import type { MainDrawerParamList } from './navigatorTypes'
-import { DashboardScreen } from '../screens/DashBoardScreens/DashboardScreen'
-import { AppSettingsScreen } from '../screens/AppSettingsScreen'
+import { TodayJobsScreen } from '../screens/TechScreens/TodayJobsScreen'
+import JobStack from './JobStack'
 import CustomDrawerContent from '../components/CustomDrawerContent'
 import { HeaderLeft, HeaderTitleLogo } from '../components/HeaderComponents'
 import { useAppTheme } from '../theme/context'
@@ -14,7 +14,7 @@ const DrawerNavigator = () => {
 
   return (
     <Drawer.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="TodayJobs"
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: true,
@@ -33,25 +33,23 @@ const DrawerNavigator = () => {
       }}
     >
       <Drawer.Screen
-        name="Dashboard"
-        component={DashboardScreen}
+        name="TodayJobs"
+        component={TodayJobsScreen}
         options={{
-          title: 'Dashboard',
+          title: 'My Jobs',
           drawerIcon: ({ color, size }) => {
             const Ionicons = require('react-native-vector-icons/Ionicons').default
-            return <Ionicons name="grid-outline" size={size} color={color} />
+            return <Ionicons name="clipboard-outline" size={size} color={color} />
           },
         }}
       />
       <Drawer.Screen
-        name="Settings"
-        component={AppSettingsScreen}
+        name="JobFlow"
+        component={JobStack}
         options={{
-          title: 'Settings & Preferences',
-          drawerIcon: ({ color, size }) => {
-            const Ionicons = require('react-native-vector-icons/Ionicons').default
-            return <Ionicons name="settings-outline" size={size} color={color} />
-          },
+          headerShown: false,
+          drawerItemStyle: { display: 'none' },
+          title: 'Job',
         }}
       />
     </Drawer.Navigator>
